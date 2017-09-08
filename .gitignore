@@ -1,0 +1,9 @@
+dist
+src/config/env/local.ts
+node_modules
+npm-debug.log
+*~
+*#
+.DS_STORE
+ssl.crt
+ssl.key
