@@ -90,4 +90,32 @@ describe('UserController', () => {
       ]);
     });
   });
+
+  describe('.getUser', () => {
+    it('should fail if the user id is invalid', async () => {
+      const { body, status } = await request.get('/api/users/invalid');
+
+      expect(status).to.equal(404);
+      expect(body).to.have.all.keys(['status', 'message']);
+      expect(body.status).to.equal('fail');
+      expect(body.message).to.equal('User not found');
+    });
+
+    it('should retrieve information about the user', async () => {
+      const { body, status } = await request.get('/api/users/1');
+
+      expect(status).to.equal(200);
+      expect(body).to.have.all.keys(['status', 'data']);
+      expect(body.status).to.equal('success');
+      expect(body.data).to.be.an('object');
+      expect(body.data).to.have.all.keys([
+        'id',
+        'email',
+        'createdAt',
+        'updatedAt',
+      ]);
+      expect(body.data.id).to.equal(1);
+      expect(body.data.email).to.equal('garrett@test.com');
+    });
+  });
 });
