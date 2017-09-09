@@ -37,7 +37,14 @@ export class UserController {
 
   async getUser(ctx: Ctx) {
     this.logger.verbose('getUser');
-    ctx.throw(501);
+    const id = ctx.params.id;
+
+    await validate.getUser(id);
+
+    const user = await userModel.getUserStrict({ id });
+    const omitted = userUtils.omit(user);
+
+    ctx.body = jsend.success(omitted);
   }
 
   async updateUser(ctx: Ctx) {

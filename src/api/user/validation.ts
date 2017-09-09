@@ -41,6 +41,11 @@ export const controller = {
     }
   },
 
+  async getUser(id: number) {
+    const user = await userModel.getUser({ id });
+    if (!user) throw new UserError('User not found', 404);
+  },
+
   updateUser() {
 
   },

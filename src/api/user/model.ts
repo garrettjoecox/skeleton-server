@@ -36,6 +36,14 @@ export class UserModel {
     return user ? user.get() : null;
   }
 
+  async getUserStrict(query: object) {
+    this.logger.verbose('getUserStrict');
+    const user = await this.getUser(query);
+
+    if (!user) throw new Error('User not found');
+    return user;
+  }
+
   importFixtures(users: User[]): Promise<User[]> {
     return Promise.all(users.map(user => this.createUser(user)));
   }
