@@ -9,7 +9,6 @@ export let request: supertest.SuperTest<supertest.Test>;
 before(() => {
   request = supertest(server.koa.callback());
 
-  return server.start()
-    .then(() => database.sequelize.sync({ force: true }))
+  return database.sequelize.sync({ force: true })
     .then(() => database.importFixtures());
 });

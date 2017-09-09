@@ -29,7 +29,7 @@ export class Config {
       } catch (e) {}
       const env = require(`./env/${this.env}`);
 
-      Object.assign(this, defaultsDeep({}, env, local, this));
+      Object.assign(this, defaultsDeep({}, local, env, this));
     } catch (e) {
       throw new Error(`Invalid env "${this.env}"`);
     }
