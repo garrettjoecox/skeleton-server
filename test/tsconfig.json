@@ -1,5 +1,4 @@
 {
-  "compileOnSave": true,
   "compilerOptions": {
     "module": "commonjs",
     "target": "esnext",
@@ -9,12 +8,12 @@
     "baseUrl": ".",
     "paths": {
       "*": [
-        "src/declarations/*",
-        "node_modules/*"
+        "node_modules/*",
+        "src/declarations/*"
       ]
     }
   },
   "include": [
-    "src/**/*"
+    "**/*"
   ]
 }

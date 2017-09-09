@@ -13,6 +13,25 @@ export class Database {
       logging: false,
     });
   }
+
+  async importFixtures() {
+    const userModel = require('../api/user/model').default;
+
+    const fixtures: any = {
+      users: [],
+    };
+
+    try {
+      const env = require(`./fixtures/${config.env}`);
+      Object.assign(fixtures, env);
+    } catch (e) {}
+
+    await userModel.importFixtures(fixtures.users);
+  }
+
+  migrate() {
+
+  }
 }
 
 export default new Database();

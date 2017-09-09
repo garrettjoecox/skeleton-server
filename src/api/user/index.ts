@@ -9,7 +9,11 @@ export class UserApi {
 
   constructor() {
     this.router
-      .get('/', userController.getUsers.bind(userController));
+       .get('/',    userController.getUsers.bind(userController))
+      .post('/',    userController.createUser.bind(userController))
+       .get('/:id', userController.getUser.bind(userController))
+       .put('/:id', userController.updateUser.bind(userController))
+    .delete('/:id', userController.deleteUser.bind(userController));
 
     this.logger.verbose('Initialized');
   }
