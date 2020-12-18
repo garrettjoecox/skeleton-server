@@ -1,0 +1,30 @@
+{
+  "presets": [
+    "@babel/preset-typescript",
+    [
+      "@babel/preset-env",
+      {
+        "modules": "commonjs",
+        "targets": {
+          "esmodules": true,
+          "node": "current"
+        },
+        "bugfixes": true,
+        "loose": true
+      }
+    ]
+  ],
+  "plugins": [
+    [
+      "module-resolver",
+      {
+        "root": [
+          "./src"
+        ],
+        "extensions": [
+          ".ts"
+        ]
+      }
+    ]
+  ]
+}

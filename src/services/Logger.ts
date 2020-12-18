@@ -4,8 +4,9 @@ import { logConfig } from 'config';
 import strip from 'strip-ansi';
 
 const LOG_LEVELS: { [index: string]: number } = {
-  verbose: 3,
-  info: 2,
+  verbose: 4,
+  info: 3,
+  warn: 2,
   error: 1,
   silent: 0,
 };
@@ -15,7 +16,7 @@ let loggerSingleton: Logger;
 export default class Logger {
   static get() {
     if (!loggerSingleton) {
-      loggerSingleton = new Logger(logConfig);
+      loggerSingleton = new Logger();
     }
 
     return loggerSingleton;
@@ -27,7 +28,7 @@ export default class Logger {
 
   private logLevel: number;
 
-  constructor(config: typeof logConfig, category?: string) {
+  constructor(category?: string, config: typeof logConfig = logConfig) {
     if (category) {
       this.category = this.surround(category);
       this.strippedCategory = strip(category);
@@ -36,7 +37,7 @@ export default class Logger {
     if (this.strippedCategory && this.strippedCategory in config) {
       this.logLevel = LOG_LEVELS[config[this.strippedCategory]!]!;
     } else {
-      this.logLevel = LOG_LEVELS[config.default!]!;
+      this.logLevel = LOG_LEVELS[config.default]!;
     }
   }
 
@@ -61,7 +62,7 @@ export default class Logger {
 
     if (this.category) args.unshift(this.category);
     args.unshift(this.surround(chalk.yellow('Warn')));
-    console.log(...args);
+    console.warn(...args);
   }
 
   error(...args: any[]) {
@@ -69,7 +70,7 @@ export default class Logger {
 
     if (this.category) args.unshift(this.category);
     args.unshift(this.surround(chalk.red('Error')));
-    console.log(...args);
+    console.error(...args);
   }
 
   // eslint-disable-next-line class-methods-use-this

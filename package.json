@@ -5,10 +5,12 @@
   "private": true,
   "main": "dist/index.js",
   "scripts": {
-    "start": "ts-node -r tsconfig-paths/register src/index.ts",
-    "watch": "nodemon -r tsconfig-paths/register src/index.ts",
+    "start": "node dist/index.js",
+    "build": "babel src --out-dir dist --extensions \".ts\"",
+    "watch": "nodemon",
     "type-check": "tsc --pretty --noEmit",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "test": "jest --coverage"
   },
   "repository": {
     "type": "git",
@@ -27,17 +29,23 @@
     "strip-ansi": "^6.0.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.12.10",
+    "@babel/core": "^7.12.10",
+    "@babel/node": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "@babel/preset-typescript": "^7.12.7",
+    "@types/jest": "^26.0.19",
     "@types/koa": "^2.11.6",
     "@typescript-eslint/eslint-plugin": "^4.10.0",
-    "concurrently": "^5.3.0",
+    "babel-jest": "^26.6.3",
+    "babel-plugin-module-resolver": "^4.1.0",
     "eslint": "^7.15.0",
     "eslint-config-airbnb-typescript": "^12.0.0",
     "eslint-config-prettier": "^7.0.0",
     "eslint-plugin-import": "^2.22.1",
+    "jest": "^26.6.3",
     "nodemon": "^2.0.6",
     "prettier": "^2.2.1",
-    "ts-node": "^9.1.1",
-    "tsconfig-paths": "^3.9.0",
     "typescript": "^4.1.3"
   }
 }

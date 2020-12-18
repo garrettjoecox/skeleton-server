@@ -1,6 +1,6 @@
-export const logConfig: { [index: string]: number } = {
-  default: parseInt(process.env.LOG_LEVEL!, 10) || 4,
-  Database: 3,
+export const logConfig: { [index: string]: string } & { default: string } = {
+  default: process.env.LOG_LEVEL || 'info',
+  Database: 'error',
 };
 
 export default {
