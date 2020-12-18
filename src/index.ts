@@ -1,8 +1,13 @@
-export default async function listen(): Promise<void> {
-  console.log('Listening');
-  await new Promise((r) => setTimeout(r, 5000));
+import Server from 'Server';
+import Logger from 'services/Logger';
 
-  return listen();
-}
+(async () => {
+  const logger = Logger.get();
+  try {
+    const server = Server.get();
 
-listen();
+    await server.start();
+  } catch (error) {
+    logger.error(error);
+  }
+})();
