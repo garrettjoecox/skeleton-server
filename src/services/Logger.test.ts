@@ -32,31 +32,31 @@ test('.get returns a singleton of the Logger', () => {
 });
 
 test('.verbose logs to the console', () => {
-  const logger = new Logger(undefined, { default: 'verbose' });
+  const logger = new Logger({ config: { default: 'verbose' } });
   logger.verbose('Test');
   expect(consoleMock.log).toBeCalledWith(surround(chalk.magenta('Verbose')), 'Test');
 });
 
 test('.info logs to the console', () => {
-  const logger = new Logger(undefined, { default: 'verbose' });
+  const logger = new Logger({ config: { default: 'verbose' } });
   logger.info('Test');
   expect(consoleMock.log).toBeCalledWith(surround(chalk.green('Info')), 'Test');
 });
 
 test('.warn logs to the console', () => {
-  const logger = new Logger(undefined, { default: 'verbose' });
+  const logger = new Logger({ config: { default: 'verbose' } });
   logger.warn('Test');
   expect(consoleMock.warn).toBeCalledWith(surround(chalk.yellow('Warn')), 'Test');
 });
 
 test('.error logs to the console', () => {
-  const logger = new Logger(undefined, { default: 'verbose' });
+  const logger = new Logger({ config: { default: 'verbose' } });
   logger.error('Test');
   expect(consoleMock.error).toBeCalledWith(surround(chalk.red('Error')), 'Test');
 });
 
 test('Respects log level', () => {
-  const logger = new Logger(undefined, { default: 'warn' });
+  const logger = new Logger({ config: { default: 'warn' } });
   logger.verbose('Test');
   logger.info('Test');
   logger.warn('Test');
@@ -67,7 +67,7 @@ test('Respects log level', () => {
 });
 
 test("Silent shouldn't log anything", () => {
-  const logger = new Logger(undefined, { default: 'silent' });
+  const logger = new Logger({ config: { default: 'silent' } });
   logger.verbose('Test');
   logger.info('Test');
   logger.warn('Test');
@@ -78,7 +78,7 @@ test("Silent shouldn't log anything", () => {
 });
 
 test('Ability to add category prefix', () => {
-  const logger = new Logger('Category', { default: 'verbose' });
+  const logger = new Logger({ category: 'Category', config: { default: 'verbose' } });
   logger.verbose('Test');
   expect(consoleMock.log).toBeCalledWith(surround(chalk.magenta('Verbose')), surround('Category'), 'Test');
   logger.info('Test');
@@ -90,7 +90,7 @@ test('Ability to add category prefix', () => {
 });
 
 test('Category respects log level', () => {
-  const logger = new Logger('Category', { default: 'verbose', Category: 'warn' });
+  const logger = new Logger({ category: 'Category', config: { default: 'verbose', Category: 'warn' } });
   logger.verbose('Test');
   logger.info('Test');
   logger.warn('Test');
@@ -101,7 +101,7 @@ test('Category respects log level', () => {
 });
 
 test('Category should keep colors', () => {
-  const logger = new Logger(chalk.green('Category'));
+  const logger = new Logger({ category: chalk.green('Category') });
   logger.error('Test');
   expect(consoleMock.error).toBeCalledWith(surround(chalk.red('Error')), surround(chalk.green('Category')), 'Test');
 });

@@ -28,7 +28,8 @@ export default class Logger {
 
   private logLevel: number;
 
-  constructor(category?: string, config: typeof logConfig = logConfig) {
+  constructor(options: { category?: string; config?: typeof logConfig } = {}) {
+    const { category, config } = { config: logConfig, ...options };
     if (category) {
       this.category = this.surround(category);
       this.strippedCategory = strip(category);

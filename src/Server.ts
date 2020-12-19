@@ -6,13 +6,20 @@ let serverSingleton: Server;
 export default class Server {
   static get() {
     if (!serverSingleton) {
-      serverSingleton = new Server(Logger.get(), new Koa());
+      serverSingleton = new Server();
     }
 
     return serverSingleton;
   }
 
-  constructor(private logger: Logger, private koa: Koa) {}
+  private logger: Logger;
+
+  private koa: Koa;
+
+  constructor(deps: { logger?: Logger; koa?: Koa } = {}) {
+    this.logger = deps.logger || new Logger();
+    this.koa = deps.koa || new Koa();
+  }
 
   public async start(): Promise<void> {
     await new Promise<void>((r) => this.koa.listen(9000, r));
